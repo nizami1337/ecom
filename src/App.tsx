@@ -16,7 +16,7 @@ function App() {
       {error ? ( <>An error occured</>
         ) : isLoading ? (
           <ProductsSkeleton/>
-        ) : data ? data.map(x => <Card item={x}/>) : null}
+        ) : data ? data.map(x => <Card key={x.id} item={x}/>) : null}
       </div>
       <ToastContainer/>
     </div>
