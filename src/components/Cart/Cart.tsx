@@ -1,40 +1,59 @@
 import { ToastContainer, toast } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { changeQuantity, getCartItems } from "../../redux/slices/cartSlice";
+import { addToCart, removeFromCart, getCartItems, resetCart } from "../../redux/slices/cartSlice";
 import { Item } from "../../types";
 import Navbar from "../Navbar/Navbar";
+import { useEffect, useState } from "react";
 
 const Cart = () => {
-    const cartItems = useAppSelector(getCartItems)
+    const cart = useAppSelector(getCartItems)
     const dispatch = useAppDispatch();
-    console.log(cartItems)
+    const cartUnique = [...new Set(cart)]
+    console.log(cart)
+    const [total, setTotal] = useState(0);
 
-    function changeQt(item: Item, quantity: number) {
-        dispatch(changeQuantity({item, quantity}));
-        toast.success('lets go')
+    useEffect(() => {
+       setTotal(cart.reduce((total, curr) => total += curr.price, 0)) 
+    }, [cart])
+
+    function add(item: Item) {
+        dispatch(addToCart(item));
+    }
+
+    function remove(item: Item) {
+        dispatch(removeFromCart(item));
+    }
+
+    function handlePurchase() {
+        dispatch(resetCart())
+        toast.success('Successful Purchase!', {theme: 'dark', position: "bottom-right"})
     }
 
     return (
         <div className="app">
             <Navbar/>
-            <div className="cart">
+            {cart.length ? <div className="cart flex flex-col gap-3">
                 <div className="cart__items flex flex-col gap-5 bg-base-200 p-4 rounded-2xl">
-                    {cartItems.map(item => item.quantity != 0 ?  (
-                        <div className="flex items-center justify-between gap-10" key={item.item.id}>
+                    {cartUnique.map(item =>
+                        <div className="flex items-center justify-between gap-10" key={item.id}>
                             <div className="flex items-center gap-5">
-                                <img className="max-w-[90px]" src={item.item.image}/>
-                                <h2 className="text-2xl">{item.item.title}</h2>
+                                <img className="max-w-[90px]" src={item.image}/>
+                                <h2 className="text-2xl">{item.title}</h2>
                             </div>
                             <div className="join">
-                                <button className="btn join-item" onClick={() => changeQt(item.item, item.quantity-1)}>-</button>
-                                <input type="text" className="input input-ghost w-10 p-0 text-center" value={item.quantity} disabled/>
-                                <button className="btn join-item" onClick={() => changeQt(item.item, item.quantity+1)}>+</button>
+                                <button className="btn join-item" onClick={() => remove(item)}>-</button>
+                                <input type="text" className="input input-ghost w-10 p-0 text-center" value={cart.filter(x => x == item).length} disabled/>
+                                <button className="btn join-item" onClick={() => add(item)}>+</button>
                             </div>
                         </div>
-                    ) : null)}
+                    )
+                    }
                 </div>
-                <div className="cart__summary"></div>
-            </div>
+                <div className="cart__summary flex justify-between items-center">
+                    <h1 className="text-3xl">Cart Total: {total.toFixed(2)}$</h1>
+                    <button className="btn btn-active btn-primary max-w-[100px]" onClick={handlePurchase}>Purchase</button>
+                </div>
+            </div> : <h1 className="text-2xl">Cart is empty</h1>}
             <ToastContainer/>
         </div>
     )

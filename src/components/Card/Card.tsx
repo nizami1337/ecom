@@ -12,7 +12,7 @@ const Card : React.FC<ICardProps> = ({item}) => {
     
     function handleAddToCart() {
         dispatch(addToCart(item))
-        toast.success('Added to cart', {theme: 'dark'})
+        toast.success('Added to cart', {theme: 'dark', position: "bottom-right"})
     }
 
     return (
@@ -28,7 +28,7 @@ const Card : React.FC<ICardProps> = ({item}) => {
                 <p className="text-lg">Rating: {item.rating.rate}/5 <span className="text-xs">({item.rating.count} reviews)</span></p>
                 <div className="card-actions justify-between items-center">
                     <span className="text-3xl">{item.price}$</span>
-                    <button className="btn btn-primary text-xl" onClick={handleAddToCart}>Add to cart</button>
+                    <button className="btn btn-primary text-xl" onClick={(e) => {e.preventDefault();handleAddToCart()}}>Add to cart</button>
                 </div>
             </div>
         </div>

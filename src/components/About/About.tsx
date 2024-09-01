@@ -10,7 +10,7 @@ const About = () => {
                     <div className="max-w-md">
                     <h1 className="text-5xl font-bold">Hello there</h1>
                     <p className="py-6 text-2xl">
-                        This project was built purely due to demonstrate my react skills
+                        This project was built purely to demonstrate my react skills
                     </p>
                     <Link className="btn btn-primary text-2xl" to={'/'}>Back to home page</Link>
                     </div>

@@ -25,7 +25,7 @@ const Product = () => {
                         <p className="text-xl max-w-[600px]">Rating: {data.rating.rate}/5 <span>({data.rating.count} reviews)</span></p>
                         <p className="text-lg max-w-[600px]">Description: <br/>{data.description}</p>
                         <p className="text-3xl">Price: {data.price}$</p>
-                        <button className="btn btn-primary" onClick={() => {dispatch(addToCart(data)); toast.success('Added to cart', {theme: 'dark'})}}>Add to cart</button>                    
+                        <button className="btn btn-primary" onClick={() => {dispatch(addToCart(data)); toast.success('Added to cart', {theme: 'dark', position: "bottom-right"})}}>Add to cart</button>                    
                     </div>
                 </div>
             ) : null}

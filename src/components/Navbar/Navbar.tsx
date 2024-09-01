@@ -46,10 +46,10 @@ const Navbar = () => {
                 <details>
                   <summary className="rounded-full">Categories</summary>
                   <ul className="p-2 z-[999] bg-base-300 shadow-xl rounded-2xl">
-                    <li><a>Electronics</a></li>
-                    <li><a>Jewelery</a></li>
-                    <li><a>Men's Clothing</a></li>
-                    <li><a>Women's Clothing</a></li>
+                    <li><Link to={"/category/electronics"}>Electronics</Link></li>
+                    <li><Link to={"/category/jewelery"}>Jewelery</Link></li>
+                    <li><Link to={"/category/men's clothing"}>Men's Clothing</Link></li>
+                    <li><Link to={"/category/women's clothing"}>Women's Clothing</Link></li>
                   </ul>
                 </details>
               </li>

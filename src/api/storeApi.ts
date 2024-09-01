@@ -17,4 +17,4 @@ export const storeApi = createApi({
   }),
 })
 
-export const { useGetProductsQuery, useGetProductByIDQuery } = storeApi
+export const { useGetProductsQuery, useGetProductByIDQuery, useGetProductsByCategoryQuery } = storeApi
